@@ -1,3 +1,4 @@
+import { initCursor } from './cursor';
 import { profileMedia } from './profile';
 import { skills } from './skills';
 import { requiredElement } from './dom';
@@ -102,3 +103,5 @@ const navObserver = new IntersectionObserver(entries => {
   }
 }, { rootMargin: '-15% 0px -55% 0px', threshold: 0 });
 document.querySelectorAll<HTMLElement>('main section[id]').forEach(section => navObserver.observe(section));
+
+initCursor();

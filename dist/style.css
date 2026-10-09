@@ -18,3 +18,23 @@
 .intro-video{width:100%;max-width:430px;height:560px;object-fit:contain;border-radius:16px}.profile-portrait{width:100%;height:100%;object-fit:cover}@media(max-width:600px){.intro-video{height:340px}}
 
 .hero-initial{font-size:150px;padding:35px 10px 80px;letter-spacing:-.08em}.hero-initial>span{font-size:65px;bottom:24px;right:0}.hero-word{opacity:.055}@media(min-width:1001px){.hero-initial{font-size:190px}.hero-initial>span{font-size:80px}}
+
+/* Fine-pointer cursor enhancement. */
+.custom-cursor{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity .15s;color:var(--text)}
+.custom-cursor.is-visible{opacity:1}
+.cursor-ring,.cursor-dot,.cursor-label{position:absolute;top:0;left:0;pointer-events:none;will-change:transform}
+.cursor-ring::before{content:'';position:absolute;width:34px;height:34px;border:1px solid currentColor;border-radius:50%;transform:translate(-50%,-50%);transition:width .22s,height .22s,background .22s}
+.cursor-dot::before{content:'';position:absolute;width:5px;height:5px;border-radius:50%;background:currentColor;transform:translate(-50%,-50%)}
+.custom-cursor.is-link .cursor-ring::before{width:54px;height:54px;background:color-mix(in srgb,var(--text) 7%,transparent)}
+.custom-cursor.has-label .cursor-ring::before{width:72px;height:72px;background:var(--text)}
+.cursor-label{font:9px 'Space Grotesk',sans-serif;letter-spacing:.08em;text-align:center;width:72px;margin-left:-36px;margin-top:-7px;color:var(--bg)}
+.custom-cursor.has-label .cursor-dot{opacity:0}
+.custom-cursor.is-pressed .cursor-ring::before{width:26px;height:26px}
+.custom-cursor.has-label.is-pressed .cursor-ring::before{width:60px;height:60px}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){html.custom-cursor-active,html.custom-cursor-active *{cursor:none!important}html.custom-cursor-active dialog,html.custom-cursor-active dialog *,html.custom-cursor-active input,html.custom-cursor-active textarea,html.custom-cursor-active select,html.custom-cursor-active video{cursor:auto!important}}
+@media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse){.custom-cursor{display:none}}
+
+/* Keep navigation states readable in both palettes. */
+nav a{color:var(--text);transition:background-color .18s,color .18s}
+nav a:hover,nav a:focus-visible,nav a.nav-active{background:var(--text);color:var(--bg)}
+nav a.nav-active:hover,nav a.nav-active:focus-visible{background:var(--text);color:var(--bg);box-shadow:inset 0 0 0 2px var(--muted)}
