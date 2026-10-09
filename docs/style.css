@@ -86,3 +86,5 @@ body.dark .skill-element:hover,body.dark .skill-element.selected{background:var(
 .hero .intro-copy{min-height:2em}.typing-caret{color:var(--text);margin-left:3px;animation:typing-blink .8s steps(1) infinite}
 @keyframes typing-blink{50%{opacity:0}}
 @media(prefers-reduced-motion:reduce){.typing-caret{display:none}}
+
+.name-letter{display:inline-block;transform-origin:center bottom;will-change:transform}.name-space{display:inline-block;width:.22em}@media(prefers-reduced-motion:reduce){.name-letter{will-change:auto}}
