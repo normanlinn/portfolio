@@ -1,0 +1,22 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "An editorial portfolio with Framer Motion animations",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/motion.js --bundle --minify --format=iife --outfile=dist/motion.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  },
+  "dependencies": {
+    "framer-motion": "^14.0.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  }
+}
