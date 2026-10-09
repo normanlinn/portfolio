@@ -75,3 +75,7 @@ body.dark .skill-element:hover,body.dark .skill-element.selected{background:var(
 .card-back-title{font:32px/1.1 'DM Serif Display',Georgia,serif;margin-top:30px}.card-bio{font-size:13px;line-height:1.7;margin-top:18px}
 .badge-signature{font:italic 30px 'DM Serif Display',Georgia,serif;margin-top:18px}
 @media(prefers-reduced-motion:reduce){.identity-card:hover{transform:rotate(-5deg)}}
+
+.portrait-initials .profile-portrait{object-fit:contain;object-position:center;background:var(--bg)}
+
+.portrait-initials .profile-portrait{width:100%;height:160px;max-height:160px;display:block;min-height:0}
