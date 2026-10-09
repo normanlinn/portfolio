@@ -38,3 +38,24 @@
 nav a{color:var(--text);transition:background-color .18s,color .18s}
 nav a:hover,nav a:focus-visible,nav a.nav-active{background:var(--text);color:var(--bg)}
 nav a.nav-active:hover,nav a.nav-active:focus-visible{background:var(--text);color:var(--bg);box-shadow:inset 0 0 0 2px var(--muted)}
+
+/* Skill cards own their foreground and background in each theme. */
+.skill-element{color:#252630;--skill-muted:#5d5d66}
+.skill-element[data-category=Code]{--skill-muted:#b9bac4}
+.skill-element .element-number{color:var(--skill-muted)}
+body.dark .skill-element{background:#2c2e38;border-color:#535662;color:#f6f4eb;--skill-muted:#bcbcc6}
+body.dark .skill-element[data-category=Code]{background:#343746}
+body.dark .skill-element[data-category=Design]{background:#3a3935}
+body.dark .skill-element[data-category=Tools]{background:#282c30}
+.skill-element:hover,.skill-element.selected{background:var(--text);color:var(--bg);--skill-muted:var(--bg)}
+body.dark .skill-element:hover,body.dark .skill-element.selected{background:var(--text);color:var(--bg);--skill-muted:var(--bg)}
+
+.has-coding-portrait{padding-top:0;align-self:center;min-width:0}
+.coding-figure{margin:0;position:relative;width:clamp(280px,35vw,510px);max-width:135%;text-align:center}
+.coding-figure img{display:block;width:100%;height:min(64svh,660px);min-height:400px;object-fit:contain;filter:drop-shadow(0 20px 25px #00000012);animation:coding-presence 7s ease-in-out infinite}
+.coding-figure figcaption{font:9px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:var(--muted);margin-top:12px}
+@keyframes coding-presence{0%,100%{transform:translateY(0) rotate(-.3deg)}50%{transform:translateY(-9px) rotate(.3deg)}}
+@media(max-width:600px){.coding-figure{width:290px;max-width:100%}.coding-figure img{height:390px;min-height:0}.has-coding-portrait{padding-top:0}}
+@media(prefers-reduced-motion:reduce){.coding-figure img{animation:none}}
+
+.theme,.close{display:grid;place-items:center;padding:0;line-height:1;flex-shrink:0}.theme svg,.close svg{display:block;width:20px;height:20px}.close svg{width:18px;height:18px}

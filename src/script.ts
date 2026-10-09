@@ -71,6 +71,21 @@ for (const [selector, direction] of [['#work-prev', -1], ['#work-next', 1]] as c
   requiredElement<HTMLButtonElement>(selector).addEventListener('click', () => projectTrack.scrollBy({left: direction * projectTrack.clientWidth * 0.85, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
 }
 
+if (profileMedia.heroImage && !profileMedia.heroVideo) {
+  const stage = requiredElement<HTMLElement>('.hero-center');
+  const figure = document.createElement('figure');
+  figure.className = 'coding-figure';
+  const image = document.createElement('img');
+  image.src = profileMedia.heroImage;
+  image.alt = 'AI portrait of Zaw Lin Naing coding on a laptop';
+  image.width = 1024; image.height = 1536;
+  image.fetchPriority = 'high';
+  const caption = document.createElement('figcaption');
+  caption.textContent = 'ZAW LIN / IN THE MAKING';
+  figure.append(image, caption);
+  stage.replaceChildren(figure);
+  stage.classList.add('has-coding-portrait');
+}
 if (profileMedia.heroVideo) {
   const stage = requiredElement<HTMLElement>('.hero-center');
   const video = document.createElement('video');
