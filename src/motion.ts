@@ -10,10 +10,16 @@ function play(target: string | Element, frames: DOMKeyframesDefinition, options:
   control.then(() => animations.delete(control));
   return control;
 }
+function dropName() {
+  if (reduced.matches) return;
+  play('.hero-word', { y: [-180, 12, 0], opacity: [0, 0.09, 0.055], rotate: [-3, 1, 0] }, { duration: 1.35, ease: [0.22, 1, 0.36, 1] });
+}
+window.addEventListener('portfolio:home-enter', dropName);
 function startMotion() {
   if (reduced.matches) return;
   const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
   const heading = requiredElement<HTMLHeadingElement>('.hero h1');
+  dropName();
   play(heading, { opacity: [0, 1], y: [36, 0] }, { duration: 0.9, ease });
   play('.identity-card', { opacity: [0, 1], y: [30, 0], rotate: [-7, -3] }, { duration: 1, ease });
   play('.hero .eyebrow, .intro-copy, .hero-center', { opacity: [0, 1], y: [16, 0] }, { duration: 0.7, delay: stagger(0.18, { startDelay: 0.2 }), ease });
@@ -49,7 +55,7 @@ function stopMotion() {
   cleanups.splice(0).forEach(cleanup => cleanup());
   animations.forEach(control => control.stop());
   animations.clear();
-  document.querySelectorAll<HTMLElement>('.headline-line, .hero .eyebrow, .hero-bottom, .section-head, .project, .about-copy, .about > div:first-child, .process article, .contact').forEach(element => {
+  document.querySelectorAll<HTMLElement>('.hero-word, .hero h1, .hero-center, .identity-card, .intro-copy, .learning article, .headline-line, .hero .eyebrow, .hero-bottom, .section-head, .project, .about-copy, .about > div:first-child, .process article, .contact').forEach(element => {
     element.style.opacity = '';
     element.style.transform = '';
   });

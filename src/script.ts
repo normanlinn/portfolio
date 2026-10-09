@@ -122,3 +122,26 @@ const navObserver = new IntersectionObserver(entries => {
 document.querySelectorAll<HTMLElement>('main section[id]').forEach(section => navObserver.observe(section));
 
 initCursor();
+
+// Replay the introduction when visitors return Home.
+const typedIntro = requiredElement<HTMLElement>('.typed-intro');
+const typingPreference = matchMedia('(prefers-reduced-motion: reduce)');
+let typingTimer: ReturnType<typeof setTimeout> | undefined;
+function typeIntroduction(): void {
+  clearTimeout(typingTimer);
+  const words = 'Zaw Lin Naing / Software developer';
+  if (typingPreference.matches) { typedIntro.textContent = words; return; }
+  typedIntro.textContent = '';
+  let position = 0;
+  const tick = () => {
+    typedIntro.textContent = words.slice(0, ++position);
+    if (position < words.length) typingTimer = setTimeout(tick, position < 13 ? 75 : 45);
+  };
+  typingTimer = setTimeout(tick, 550);
+}
+document.querySelectorAll<HTMLAnchorElement>('a[href="#home"]').forEach(link => link.addEventListener('click', () => {
+  typeIntroduction();
+  window.dispatchEvent(new Event('portfolio:home-enter'));
+}));
+typingPreference.addEventListener('change', typeIntroduction);
+typeIntroduction();
