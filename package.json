@@ -4,7 +4,7 @@
   "description": "An editorial portfolio with Framer Motion animations",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "build": "npm run typecheck && esbuild src/script.ts src/motion.ts --bundle --minify --format=iife --outdir=dist"
+    "build": "npm run typecheck && esbuild src/script.ts src/motion.ts --bundle --minify --format=iife --outdir=dist && node scripts/prepare-pages.mjs"
   },
   "keywords": [],
   "author": "",
