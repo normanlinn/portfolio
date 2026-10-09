@@ -14,11 +14,9 @@ function startMotion() {
   if (reduced.matches) return;
   const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
   const heading = requiredElement<HTMLHeadingElement>('.hero h1');
-  if (!heading.querySelector('.headline-line')) {
-    heading.innerHTML = '<span class="headline-line">Thoughtfully</span><span class="headline-line">designed.</span><span class="headline-line blue">Carefully built.</span>';
-  }
-  play('.headline-line', { opacity: [0, 1], y: [36, 0] }, { duration: 0.9, ease, delay: stagger(0.12) });
-  play('.hero .eyebrow, .hero-bottom', { opacity: [0, 1], y: [16, 0] }, { duration: 0.7, delay: stagger(0.18, { startDelay: 0.2 }), ease });
+  play(heading, { opacity: [0, 1], y: [36, 0] }, { duration: 0.9, ease });
+  play('.identity-card', { opacity: [0, 1], y: [30, 0], rotate: [-7, -3] }, { duration: 1, ease });
+  play('.hero .eyebrow, .intro-copy', { opacity: [0, 1], y: [16, 0] }, { duration: 0.7, delay: stagger(0.18, { startDelay: 0.2 }), ease });
 
   cleanups.push(inView('.section-head, .project, .about-copy, .about > div:first-child, .process article, .contact', element => {
     play(element, { opacity: [0, 1], y: [28, 0] }, { duration: 0.65, ease });
