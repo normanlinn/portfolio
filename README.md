@@ -23,3 +23,9 @@ Run npm ci, then npm run build after editing src/motion.ts. The bundled dist/mot
 ## TypeScript development
 
 The source is in src/script.ts, src/motion.ts, and src/dom.ts. Run npm ci, npm run typecheck, and npm run build. Edit TypeScript source rather than generated dist JavaScript. Strict checking includes DOM elements, project data, dialog content, and motion options. Serve dist to preview the built website.
+
+## GitHub Pages
+
+Live site: https://normanlinn.github.io/portfolio/
+
+Pages publishes main /docs. Run npm run build after editing TypeScript, HTML, or CSS, then commit the regenerated docs folder along with the source. The build copies dist into docs and adds .nojekyll to serve the website directly.
