@@ -1,3 +1,4 @@
+import { profileMedia } from './profile';
 import { skills } from './skills';
 import { requiredElement } from './dom';
 
@@ -68,3 +69,36 @@ const projectTrack = requiredElement<HTMLElement>('.projects');
 for (const [selector, direction] of [['#work-prev', -1], ['#work-next', 1]] as const) {
   requiredElement<HTMLButtonElement>(selector).addEventListener('click', () => projectTrack.scrollBy({left: direction * projectTrack.clientWidth * 0.85, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
 }
+
+if (profileMedia.heroVideo) {
+  const stage = requiredElement<HTMLElement>('.hero-center');
+  const video = document.createElement('video');
+  video.src = profileMedia.heroVideo;
+  video.className = 'intro-video';
+  video.loop = true;
+  video.muted = true;
+  video.playsInline = true;
+  video.controls = true;
+  video.setAttribute('aria-label', 'Introduction from Zaw Lin Naing');
+  stage.replaceChildren(video);
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  const playback = () => { if (preference.matches) video.pause(); else void video.play().catch(() => {}); };
+  playback(); preference.addEventListener('change', playback);
+}
+if (profileMedia.portrait) {
+  const portrait = document.createElement('img');
+  portrait.src = profileMedia.portrait; portrait.alt = 'Zaw Lin Naing';
+  portrait.className = 'profile-portrait';
+  requiredElement('.portrait-initials').replaceChildren(portrait);
+}
+const navLinks = document.querySelectorAll<HTMLAnchorElement>('nav a');
+const navObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) if (entry.isIntersecting) {
+    navLinks.forEach(link => {
+      const active = link.hash === '#' + entry.target.id;
+      link.classList.toggle('nav-active', active);
+      if (active) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current');
+    });
+  }
+}, { rootMargin: '-15% 0px -55% 0px', threshold: 0 });
+document.querySelectorAll<HTMLElement>('main section[id]').forEach(section => navObserver.observe(section));
