@@ -1,3 +1,4 @@
+import { skills } from './skills';
 import { requiredElement } from './dom';
 
 interface Project { title: string; intro: string; problem: string; approach: string; next: string; }
@@ -44,3 +45,26 @@ requiredElement<HTMLElement>('#contact-button').addEventListener('click', () => 
 });
 requiredElement<HTMLButtonElement>('.close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if(event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
+
+const identityCard = requiredElement<HTMLButtonElement>('#identity-card');
+identityCard.addEventListener('click', () => {
+  const flipped = identityCard.classList.toggle('is-flipped');
+  identityCard.setAttribute('aria-pressed', String(flipped));
+});
+document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(button => button.addEventListener('click', () => {
+  const skill = skills[Number(button.dataset.skill)];
+  if (!skill) return;
+  requiredElement('#skill-symbol').textContent = skill.symbol;
+  requiredElement('#skill-name').textContent = skill.name;
+  requiredElement('#skill-description').textContent = skill.description;
+  document.querySelectorAll('[data-skill]').forEach(element => element.classList.remove('selected'));
+  button.classList.add('selected');
+}));
+document.querySelectorAll<HTMLButtonElement>('.skill-filter').forEach(button => button.addEventListener('click', () => {
+  document.querySelectorAll('.skill-filter').forEach(element => element.setAttribute('aria-pressed', String(element === button)));
+  document.querySelectorAll<HTMLElement>('[data-skill]').forEach(element => { element.hidden = button.dataset.category !== 'All' && element.dataset.category !== button.dataset.category; });
+}));
+const projectTrack = requiredElement<HTMLElement>('.projects');
+for (const [selector, direction] of [['#work-prev', -1], ['#work-next', 1]] as const) {
+  requiredElement<HTMLButtonElement>(selector).addEventListener('click', () => projectTrack.scrollBy({left: direction * projectTrack.clientWidth * 0.85, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
+}
