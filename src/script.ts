@@ -52,6 +52,8 @@ const identityCard = requiredElement<HTMLButtonElement>('#identity-card');
 identityCard.addEventListener('click', () => {
   const flipped = identityCard.classList.toggle('is-flipped');
   identityCard.setAttribute('aria-pressed', String(flipped));
+  identityCard.querySelector('.card-front')?.setAttribute('aria-hidden', String(flipped));
+  identityCard.querySelector('.card-back')?.setAttribute('aria-hidden', String(!flipped));
 });
 document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(button => button.addEventListener('click', () => {
   const skill = skills[Number(button.dataset.skill)];

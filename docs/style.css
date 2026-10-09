@@ -59,3 +59,19 @@ body.dark .skill-element:hover,body.dark .skill-element.selected{background:var(
 @media(prefers-reduced-motion:reduce){.coding-figure img{animation:none}}
 
 .theme,.close{display:grid;place-items:center;padding:0;line-height:1;flex-shrink:0}.theme svg,.close svg{display:block;width:20px;height:20px}.close svg{width:18px;height:18px}
+
+/* A hanging developer pass inspired by the reference's physical ID card. */
+.id-column{position:relative;padding-top:65px;perspective:1200px}
+.badge-lanyard{position:absolute;top:0;left:50%;width:28px;height:100px;transform:translateX(-50%) rotate(-3deg);background:var(--text);border-radius:3px;box-shadow:inset 5px 0 0 #ffffff18,inset -5px 0 0 #00000015;z-index:0}
+.identity-card{position:relative;width:275px;height:390px;transform:rotate(-5deg);transition:transform .35s;filter:drop-shadow(0 15px 18px #00000015)}
+.identity-card:hover{transform:rotate(-1deg) translateY(-5px)}
+.card-face{padding:24px;border-radius:12px;border:1px solid var(--line);background:var(--surface);box-shadow:inset 0 0 0 5px var(--bg)}
+.card-face::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:46px;height:6px;border-radius:9px;background:var(--text);opacity:.5}
+.card-top{margin-top:8px;align-items:center;font-size:8px;letter-spacing:.09em}.badge-dot{font-size:12px}
+.portrait-initials{height:160px;min-height:160px;margin:18px 0 12px;overflow:hidden;border-radius:5px;background:var(--bg)}
+.profile-portrait{object-position:50% 35%}
+.badge-id{font:8px 'Space Grotesk',sans-serif;letter-spacing:.15em;color:var(--muted);margin-bottom:5px}
+.card-name{font-size:20px}.card-role{font-size:9px}.card-bottom{font-size:8px;margin-top:auto}
+.card-back-title{font:32px/1.1 'DM Serif Display',Georgia,serif;margin-top:30px}.card-bio{font-size:13px;line-height:1.7;margin-top:18px}
+.badge-signature{font:italic 30px 'DM Serif Display',Georgia,serif;margin-top:18px}
+@media(prefers-reduced-motion:reduce){.identity-card:hover{transform:rotate(-5deg)}}
