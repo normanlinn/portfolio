@@ -17,3 +17,4 @@ nav{top:24px;background:var(--surface);padding:5px;box-shadow:0 4px 18px #000000
 @media(prefers-reduced-motion:reduce){.project{transition:none}}
 @media(min-width:1051px){.hero-stage{grid-template-columns:1.25fr 1.15fr .25fr}.hero h1{font-size:clamp(44px,4.3vw,69px)}}
 .hero .eyebrow{justify-content:flex-start}
+

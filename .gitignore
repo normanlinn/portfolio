@@ -1,1 +1,4 @@
 node_modules/
+.sites-runtime/
+_site/
+*.log
