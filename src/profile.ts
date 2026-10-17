@@ -4,3 +4,4 @@ export const profileMedia: { heroImage: string | null; heroVideo: string | null;
   heroVideo: null,
   portrait: 'assets/zaw-id-upright.webp',
 };
+

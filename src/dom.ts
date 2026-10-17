@@ -3,3 +3,4 @@ export function requiredElement<T extends HTMLElement>(selector: string): T {
   if (!element) throw new Error(`Missing portfolio element: ${selector}`);
   return element;
 }
+

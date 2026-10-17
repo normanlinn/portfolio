@@ -53,7 +53,8 @@ export function initCursor(): void {
       cursor.classList.add('is-visible');
       const interactive = target?.closest('a, button, [role="button"]');
       cursor.classList.toggle('is-link', !!interactive);
-      label.textContent = target?.closest('.project') ? 'VIEW' :
+      label.textContent = target?.closest('[data-route]') ? 'ROUTE' :
+        target?.closest('.project-open, [data-project]') ? 'VIEW' :
         target?.closest('.identity-card') ? 'FLIP' :
         target?.closest('[data-skill]') ? 'EXPLORE' : '';
       cursor.classList.toggle('has-label', !!label.textContent);
@@ -89,3 +90,4 @@ export function initCursor(): void {
   reducedMotion.addEventListener('change', sync);
   sync();
 }
+

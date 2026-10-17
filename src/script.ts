@@ -1,9 +1,10 @@
 import { initCursor } from './cursor';
+import { initRoutes } from './routes';
 import { profileMedia } from './profile';
 import { skills } from './skills';
 import { requiredElement } from './dom';
 
-interface Project { title: string; intro: string; problem: string; approach: string; next: string; }
+interface Project { title: string; intro: string; problem: string; approach: string; next: string; url: string; linkLabel: string; source?: string; status: string; }
 type DialogSection = readonly [heading: string, text: string];
 
 const themeButton = requiredElement<HTMLButtonElement>('.theme');
@@ -21,9 +22,9 @@ themeButton.addEventListener('click', () => {
   try { localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light'); } catch {}
 });
 const projects: Project[] = [
-  {title:'Folio — Focus dashboard', intro:'A concept for a calmer way to plan the workday.', problem:'Task lists can show what needs doing without helping people decide what matters. This concept brings focus time and weekly progress into one clear view.', approach:'Prioritize a readable overview, a compact set of metrics, and simple navigation. The interface explores how hierarchy can reduce the effort of checking progress.', next:'Replace this sample with your real project story, screenshots, role, and project link.'},
-  {title:'Form — Digital storefront', intro:'An editorial storefront concept for considered everyday objects.', problem:'A shopping experience should give products room to breathe while keeping information easy to find.', approach:'Use a focused visual hierarchy and quiet typography to connect the collection with a simple browsing experience.', next:'Add your real project, product imagery, design decisions, and live website link here.'},
-  {title:'Playground — Creative experiments', intro:'A place for small prototypes and new possibilities.', problem:'Some ideas are best understood by making them. A playground creates room to test interactions before they become full projects.', approach:'Keep experiments small, explore one question at a time, and document what each prototype teaches.', next:'Replace this sample with your experiments, source repositories, and interactive demos.'}
+  { title: 'LAXCommute', intro: 'A daily commute became a reason to build.', problem: 'Getting between an employee lot and an airport terminal should start with clear information. My work at LAX made that need personal.', approach: 'A phone-friendly web experience that brings shuttle routes, stop selection, and arrival information together. The progressive web app approach makes the project easy to reach from a phone.', next: 'Keep refining the details: navigation, route choices, install and share flows, and how clearly the interface communicates its current information.', url: 'https://employeeshuttlelax.com/', linkLabel: 'Open LAXCommute', source: 'https://github.com/normanlinn/LAXCommute', status: 'PERSONAL WEB APP / PROJECT NOTES' },
+  { title: 'Settle', intro: 'A calmer way to plan a move.', problem: 'A move is made up of small responsibilities: utilities, address changes, cleaning, keys, inspection, and records. It is easy for a loose end to get lost.', approach: 'Bring the checklist and timeline into a single planning experience, with due dates and a way to see what is complete. The idea grew out of my own need to organize a move.', next: 'Keep making the next action clearer, especially when checking a task list from a phone.', url: 'https://github.com/normanlinn/Settle', linkLabel: 'Explore Settle on GitHub', status: 'PERSONAL ORGANIZATION / PROJECT NOTES' },
+  { title: 'Burman Tea', intro: 'A storefront experience, with the work behind it considered too.', problem: 'A drink-ordering experience needs to be clear for customers and useful for the people managing the menu and orders.', approach: 'A mobile-first storefront with English and Myanmar typography, drink browsing, an ordering flow, and a protected staff workspace. The interface work includes transitions, accessible controls, and space for the product imagery.', next: 'The project is in development. Store configuration and payment setup are part of preparing the preview for real operation.', url: 'https://burman-boba.vercel.app/', linkLabel: 'Visit the project preview', status: 'IN DEVELOPMENT / PROJECT NOTES' }
 ];
 const dialog = requiredElement<HTMLDialogElement>('#case-dialog');
 function showDialog(title: string, intro: string, sections: readonly DialogSection[]) {
@@ -33,18 +34,27 @@ function showDialog(title: string, intro: string, sections: readonly DialogSecti
   body.replaceChildren();
   sections.forEach(([heading, text]) => { const h = document.createElement('h3'); h.textContent = heading; const p = document.createElement('p'); p.textContent = text; body.append(h,p); });
   dialog.showModal();
+  document.body.style.overflow = 'hidden';
   window.dispatchEvent(new Event('portfolio:dialog-open'));
 }
 document.querySelectorAll<HTMLButtonElement>('[data-project]').forEach(button => button.addEventListener('click', () => {
   const p = projects[Number(button.dataset.project)];
   if (!p) return;
-  requiredElement<HTMLElement>('#dialog-label').textContent = 'CONCEPT PROJECT / CASE STUDY';
-  showDialog(p.title, p.intro, [['The challenge',p.problem],['The approach',p.approach],['Make it yours',p.next]]);
+  requiredElement<HTMLElement>('#dialog-label').textContent = p.status;
+  showDialog(p.title, p.intro, [['The starting point', p.problem], ['What I built', p.approach], ['The next improvement', p.next]]);
+  const links = document.createElement('div');
+  links.className = 'dialog-links';
+  const live = document.createElement('a');
+  live.href = p.url; live.target = '_blank'; live.rel = 'noopener noreferrer'; live.className = 'pill primary'; live.textContent = p.linkLabel + ' ↗';
+  links.append(live);
+  if (p.source) {
+    const source = document.createElement('a');
+    source.href = p.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.className = 'inline-link'; source.textContent = 'Explore the source ↗';
+    links.append(source);
+  }
+  requiredElement('#dialog-body').append(links);
 }));
-requiredElement<HTMLElement>('#contact-button').addEventListener('click', () => {
-  requiredElement<HTMLElement>('#dialog-label').textContent = 'CONTACT';
-  showDialog('Let’s connect.', 'Contact details are coming soon.', [['Make this yours','Add your email address or preferred contact link to enable direct inquiries.']]);
-});
+dialog.addEventListener('close', () => { document.body.style.overflow = ''; });
 requiredElement<HTMLButtonElement>('.close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if(event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
 
@@ -55,23 +65,31 @@ identityCard.addEventListener('click', () => {
   identityCard.querySelector('.card-front')?.setAttribute('aria-hidden', String(flipped));
   identityCard.querySelector('.card-back')?.setAttribute('aria-hidden', String(!flipped));
 });
-document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(button => button.addEventListener('click', () => {
+function selectSkill(button: HTMLButtonElement): void {
   const skill = skills[Number(button.dataset.skill)];
   if (!skill) return;
   requiredElement('#skill-symbol').textContent = skill.symbol;
   requiredElement('#skill-name').textContent = skill.name;
   requiredElement('#skill-description').textContent = skill.description;
-  document.querySelectorAll('[data-skill]').forEach(element => element.classList.remove('selected'));
-  button.classList.add('selected');
-}));
+  document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(element => {
+    const selected = element === button;
+    element.classList.toggle('selected', selected);
+    element.setAttribute('aria-pressed', String(selected));
+  });
+}
+document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(button => button.addEventListener('click', () => selectSkill(button)));
+const initialSkill = document.querySelector<HTMLButtonElement>('[data-skill="3"]');
+if (initialSkill) selectSkill(initialSkill);
 document.querySelectorAll<HTMLButtonElement>('.skill-filter').forEach(button => button.addEventListener('click', () => {
   document.querySelectorAll('.skill-filter').forEach(element => element.setAttribute('aria-pressed', String(element === button)));
-  document.querySelectorAll<HTMLElement>('[data-skill]').forEach(element => { element.hidden = button.dataset.category !== 'All' && element.dataset.category !== button.dataset.category; });
+  document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(element => {
+    element.hidden = button.dataset.category !== 'All' && element.dataset.category !== button.dataset.category;
+  });
+  if (!document.querySelector('[data-skill].selected:not([hidden])')) {
+    const first = document.querySelector<HTMLButtonElement>('[data-skill]:not([hidden])');
+    if (first) selectSkill(first);
+  }
 }));
-const projectTrack = requiredElement<HTMLElement>('.projects');
-for (const [selector, direction] of [['#work-prev', -1], ['#work-next', 1]] as const) {
-  requiredElement<HTMLButtonElement>(selector).addEventListener('click', () => projectTrack.scrollBy({left: direction * projectTrack.clientWidth * 0.85, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'}));
-}
 
 if (profileMedia.heroImage && !profileMedia.heroVideo) {
   const stage = requiredElement<HTMLElement>('.hero-center');
@@ -79,11 +97,11 @@ if (profileMedia.heroImage && !profileMedia.heroVideo) {
   figure.className = 'coding-figure';
   const image = document.createElement('img');
   image.src = profileMedia.heroImage;
-  image.alt = 'AI portrait of Zaw Lin Naing coding on a laptop';
+  image.alt = 'AI-assisted portrait of Zaw Lin Naing working on a laptop';
   image.width = 1024; image.height = 1536;
   image.fetchPriority = 'high';
   const caption = document.createElement('figcaption');
-  caption.textContent = 'ZAW LIN / IN THE MAKING';
+  caption.textContent = 'ZAW LIN / ALWAYS IN THE MAKING';
   figure.append(image, caption);
   stage.replaceChildren(figure);
   stage.classList.add('has-coding-portrait');
@@ -122,6 +140,7 @@ const navObserver = new IntersectionObserver(entries => {
 document.querySelectorAll<HTMLElement>('main section[id]').forEach(section => navObserver.observe(section));
 
 initCursor();
+initRoutes();
 
 // Replay the introduction when visitors return Home.
 const typedIntro = requiredElement<HTMLElement>('.typed-intro');
@@ -129,7 +148,7 @@ const typingPreference = matchMedia('(prefers-reduced-motion: reduce)');
 let typingTimer: ReturnType<typeof setTimeout> | undefined;
 function typeIntroduction(): void {
   clearTimeout(typingTimer);
-  const words = 'Zaw Lin Naing / Software developer';
+  const words = 'Zaw Lin Naing / Norman Linn';
   if (typingPreference.matches) { typedIntro.textContent = words; return; }
   typedIntro.textContent = '';
   let position = 0;
@@ -145,3 +164,4 @@ document.querySelectorAll<HTMLAnchorElement>('a[href="#home"]').forEach(link => 
 }));
 typingPreference.addEventListener('change', typeIntroduction);
 typeIntroduction();
+

@@ -37,10 +37,10 @@ export const skills: Skill[] = [
     "description": "Spring interactions and purposeful animation."
   },
   {
-    "symbol": "Fg",
-    "name": "Figma",
-    "category": "Design",
-    "description": "Interface exploration and prototyping."
+    "symbol": "Cp",
+    "name": "C++",
+    "category": "Code",
+    "description": "College coursework in C++, recursion, classes, and data structures."
   },
   {
     "symbol": "Gt",
@@ -67,9 +67,10 @@ export const skills: Skill[] = [
     "description": "Interfaces that adapt to different screen sizes."
   },
   {
-    "symbol": "Ui",
-    "name": "UI design",
-    "category": "Design",
-    "description": "Hierarchy, spacing, and interaction details."
+    "symbol": "Op",
+    "name": "Aviation operations",
+    "category": "People",
+    "description": "Customer service, clear communication, and practical decisions in a changing airport environment."
   }
 ];
+

@@ -1,31 +1,26 @@
-# Portfolio 2026
+# Zaw Lin Naing / Norman Linn — Aviation × Software
 
-A responsive portfolio with Framer Motion animations built with HTML, CSS, and TypeScript.
+A responsive portfolio combining the original GitHub portfolio's portrait, identity card, dark mode, skills grid, and Framer Motion interactions with the real project stories from the Norman Linn portfolio.
 
-Open dist/index.html to view locally, or serve the dist folder with any static web server.
+Featured projects: **LAXCommute**, **Settle**, and **Burman Tea**. Burman Tea is labelled as a project in development; no operational store or payment-readiness claims are made. The contact action links to the public GitHub profile.
 
-## Personalize
+## Development
 
-- Replace “YOUR NAME” and “Your Name” in dist/index.html.
-- Update the role, biography, and toolkit in dist/index.html.
-- Replace the three concept projects with your own work. Case-study text is in src/script.ts.
-- Replace the contact-button handler in src/script.ts with a real contact link, and change the button to an anchor with a mailto URL in dist/index.html.
-- Colors, responsive layouts, and animations are in dist/style.css.
+Run `npm ci`, then `npm run build`. The build checks TypeScript, bundles `src/script.ts` and `src/motion.ts`, and copies `dist/` to `docs/` for the existing GitHub Pages workflow.
 
-The names, biography, skills, and projects are sample content. No real career claims or project results have been supplied. Contact is not connected.
+Public portfolio: https://normanlinn.github.io/portfolio/
 
-Google Fonts are optional: system sans-serif fonts remain available when offline.
+## Structure
 
-## Motion
+- `dist/index.html`: semantic page content and accessible project story dialog.
+- `dist/style.css`, `dist/redesign.css`, `dist/merge.css`: the retained design system, merged art direction, local typography, and responsive layouts.
+- `src/script.ts`: theme, accessible project stories, identity card, skill filters, portrait, and navigation.
+- `src/routes.ts`: interactive illustrated route selection with reduced-motion support.
+- `src/motion.ts`: retained Framer Motion entrances, hover feedback, scroll progress, and reduced-motion cleanup.
+- `src/cursor.ts`: retained desktop pointer enhancement; native touch and keyboard behavior remain available.
+- `dist/assets/`: fonts, favicon, and social preview.
+- `.openai/hosting.json`: persistent Site identity and static output configuration.
 
-Run npm ci, then npm run build after editing src/motion.ts. The bundled dist/motion.js is included for static hosting and offline preview. Animations include staggered headlines, scroll reveals, spring hover/press feedback, reading progress, and dialog entrances. Reduced-motion preferences disable these effects, including when changed during a visit.
+The shuttle illustration is a labelled, non-geographic concept sketch. It makes no live location or arrival-time claims. Actual shuttle information is accessed through the linked LAXCommute app.
 
-## TypeScript development
-
-The source is in src/script.ts, src/motion.ts, and src/dom.ts. Run npm ci, npm run typecheck, and npm run build. Edit TypeScript source rather than generated dist JavaScript. Strict checking includes DOM elements, project data, dialog content, and motion options. Serve dist to preview the built website.
-
-## Personal hero media
-
-The supplied reference videos are design references and are not published as your identity. Add your own video and portrait to dist/assets, then set their relative paths in src/profile.ts and run npm run build. The hero video supports native play/pause controls and pauses automatically for reduced-motion preferences.
-
-GitHub Pages deployment: https://normanlinn.github.io/portfolio/
+Source content is grounded in the user's supplied identity, project sources, aviation experience, and coursework. No private contact data is included. Portraits are retained from the original GitHub repository; the hero image is AI-assisted. Local fonts retain their accompanying license.
