@@ -1,0 +1,108 @@
+<!doctype html>
+<!-- Source for dist/assets/zaw-lin-naing-resume.pdf. To update: edit this file, open it in Chrome, Print > Save as PDF (Letter, no headers and footers), save over that PDF, then npm run build. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zaw Lin Naing — Résumé</title>
+<style>
+  @font-face { font-family: 'Studio Sans'; src: url(../dist/assets/studio-book.woff) format('woff'); font-weight: 400; }
+  @font-face { font-family: 'Studio Sans'; src: url(../dist/assets/studio-demi.woff) format('woff'); font-weight: 600; }
+  @font-face { font-family: 'Studio Text'; src: url(../dist/assets/text-regular.woff) format('woff'); }
+  @page { size: Letter; margin: 0.55in 0.6in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font: 9.6pt/1.42 'Studio Text', Arial, sans-serif; color: #1d2220; }
+  a { color: inherit; text-decoration: none; }
+  header { border-bottom: 1.5px solid #1d2220; padding-bottom: 10px; margin-bottom: 12px; }
+  h1 { font: 600 22pt/1.1 'Studio Sans', Arial, sans-serif; letter-spacing: -0.6px; }
+  h1 span { font-weight: 400; color: #60636c; font-size: 13pt; letter-spacing: 0; }
+  .contact { margin-top: 5px; color: #3a3d44; font-size: 8.8pt; white-space: nowrap; }
+  .contact span + span::before { content: '·'; margin: 0 5px; color: #9a9da5; }
+  .summary { margin-bottom: 4px; }
+  .open { margin-top: 4px; font-weight: 600; font-family: 'Studio Sans', Arial, sans-serif; }
+  h2 { font: 600 8pt 'Studio Sans', Arial, sans-serif; letter-spacing: 1.4px; text-transform: uppercase; color: #60636c; margin: 13px 0 6px; }
+  .item { margin-bottom: 8px; break-inside: avoid; }
+  .item-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  h3 { font: 600 10.5pt 'Studio Sans', Arial, sans-serif; }
+  h3 em { font-style: normal; font-weight: 400; color: #60636c; font-size: 9pt; }
+  .meta { color: #60636c; font-size: 8.6pt; white-space: nowrap; }
+  ul { margin: 3px 0 0 14px; }
+  li { margin-bottom: 1.5px; }
+  .skills p { margin-bottom: 2px; }
+  .skills b { font-family: 'Studio Sans', Arial, sans-serif; font-weight: 600; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Zaw Lin Naing <span>(Norman Linn)</span></h1>
+  <p class="contact">
+    <span>Los Angeles, CA</span>
+    <span><a href="mailto:mrzawlinnaing1001@gmail.com">mrzawlinnaing1001@gmail.com</a></span>
+    <span><a href="https://www.linkedin.com/in/zawlinnaing">linkedin.com/in/zawlinnaing</a></span>
+    <span><a href="https://github.com/normanlinn">github.com/normanlinn</a></span>
+    <span><a href="https://normanlinn.github.io/portfolio/">normanlinn.github.io/portfolio</a></span>
+  </p>
+</header>
+
+<p class="summary">Web developer and El Camino College student with an aviation customer-service background at LAX. I build practical, phone-first web apps with React and TypeScript, and care about clear interfaces, accessibility and automated testing.</p>
+<p class="open">Open to remote or part-time web development work.</p>
+
+<h2>Projects</h2>
+
+<div class="item">
+  <div class="item-head"><h3>LAXCommute <em>· employeeshuttlelax.com</em></h3><span class="meta">React · TypeScript · Supabase · Cloudflare Workers</span></div>
+  <ul>
+    <li>Built and shipped an installable web app (PWA) showing live LAX employee shuttle positions and arrival predictions for the South, East and West lots.</li>
+    <li>Serves a same-origin API from Cloudflare Workers, with Supabase processing the third-party tracker feed and storing optional accounts.</li>
+    <li>Interactive Leaflet and MapLibre maps, saved commutes, directions in Apple or Google Maps, and English, Spanish and Burmese.</li>
+    <li>Covered by 141 automated tests across 27 test files; 50 commits in its first three weeks.</li>
+  </ul>
+</div>
+
+<div class="item">
+  <div class="item-head"><h3>Derivatives Field Guide <em>· normanlinn.github.io/calculus-study-site</em></h3><span class="meta">Next.js · TypeScript · KaTeX</span></div>
+  <ul>
+    <li>Interactive calculus study site for Math 190: 77 practice problems with hints, 8 draggable graphs and an 18-question practice quiz.</li>
+    <li>Rebuilt a single 1,500-line HTML page into a statically exported Next.js site, with math rendered at build time by KaTeX.</li>
+    <li>Touch-friendly canvas graphs using pointer events, drawn at the screen's pixel density so they stay sharp on phones.</li>
+  </ul>
+</div>
+
+<div class="item">
+  <div class="item-head"><h3>Burman Tea <em>· burmantea.vercel.app</em></h3><span class="meta">In development</span></div>
+  <ul>
+    <li>Mobile-first menu and ordering experience with English and Myanmar typography and a protected staff workspace.</li>
+  </ul>
+</div>
+
+<div class="item">
+  <div class="item-head"><h3>Portfolio <em>· normanlinn.github.io/portfolio</em></h3><span class="meta">TypeScript · Framer Motion</span></div>
+  <ul>
+    <li>Responsive personal site with keyboard-accessible dialogs, dark mode and animation that respects reduced-motion settings.</li>
+  </ul>
+</div>
+
+<h2>Experience</h2>
+<div class="item">
+  <div class="item-head"><h3>Aviation Customer Service <em>· Los Angeles International Airport (LAX)</em></h3><span class="meta">Los Angeles, CA</span></div>
+  <ul>
+    <li>Help travelers through changing plans in a fast-moving airport, giving clear information and a next step.</li>
+    <li>Communicate with passengers and coworkers under time pressure; this daily experience led directly to building LAXCommute.</li>
+  </ul>
+</div>
+
+<h2>Education</h2>
+<div class="item">
+  <div class="item-head"><h3>El Camino College</h3><span class="meta">Torrance, CA</span></div>
+  <ul>
+    <li>Coursework: C++ programming and data structures; calculus (Math 190).</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<div class="skills">
+  <p><b>Languages:</b> TypeScript, JavaScript, HTML, CSS, C++ (coursework)</p>
+  <p><b>Frameworks and tools:</b> React, Next.js, Vite, Motion / Framer Motion, Supabase, Cloudflare Workers, Leaflet, MapLibre, KaTeX, Git, GitHub, Vercel</p>
+  <p><b>Practices:</b> Phone-first responsive design, progressive web apps, accessibility, automated testing</p>
+</div>
+</body>
+</html>

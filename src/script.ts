@@ -4,7 +4,7 @@ import { profileMedia } from './profile';
 import { skills } from './skills';
 import { requiredElement } from './dom';
 
-interface Project { title: string; intro: string; problem: string; approach: string; next: string; url: string; linkLabel: string; source?: string; status: string; }
+interface Project { title: string; intro: string; problem: string; approach: string; hardest?: string; results?: string[]; next: string; url?: string; linkLabel: string; source?: string; status: string; }
 type DialogSection = readonly [heading: string, text: string];
 
 const themeButton = requiredElement<HTMLButtonElement>('.theme');
@@ -22,9 +22,10 @@ themeButton.addEventListener('click', () => {
   try { localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light'); } catch {}
 });
 const projects: Project[] = [
-  { title: 'LAXCommute', intro: 'A daily commute became a reason to build.', problem: 'Getting between an employee lot and an airport terminal should start with clear information. My work at LAX made that need personal.', approach: 'A phone-friendly web experience that brings shuttle routes, stop selection, and arrival information together. The progressive web app approach makes the project easy to reach from a phone.', next: 'Keep refining the details: navigation, route choices, install and share flows, and how clearly the interface communicates its current information.', url: 'https://employeeshuttlelax.com/', linkLabel: 'Open LAXCommute', source: 'https://github.com/normanlinn/LAXCommute', status: 'PERSONAL WEB APP / PROJECT NOTES' },
-  { title: 'Settle', intro: 'A calmer way to plan a move.', problem: 'A move is made up of small responsibilities: utilities, address changes, cleaning, keys, inspection, and records. It is easy for a loose end to get lost.', approach: 'Bring the checklist and timeline into a single planning experience, with due dates and a way to see what is complete. The idea grew out of my own need to organize a move.', next: 'Keep making the next action clearer, especially when checking a task list from a phone.', url: 'https://github.com/normanlinn/Settle', linkLabel: 'Explore Settle on GitHub', status: 'PERSONAL ORGANIZATION / PROJECT NOTES' },
-  { title: 'Burman Tea', intro: 'A storefront experience, with the work behind it considered too.', problem: 'A drink-ordering experience needs to be clear for customers and useful for the people managing the menu and orders.', approach: 'A mobile-first storefront with English and Myanmar typography, drink browsing, an ordering flow, and a protected staff workspace. The interface work includes transitions, accessible controls, and space for the product imagery.', next: 'The project is in development. Store configuration and payment setup are part of preparing the preview for real operation.', url: 'https://burman-boba.vercel.app/', linkLabel: 'Visit the project preview', status: 'IN DEVELOPMENT / PROJECT NOTES' }
+  { title: 'LAXCommute', intro: 'A daily commute became a reason to build.', problem: 'Getting between an employee lot and an airport terminal should start with clear information. My work at LAX made that need personal.', approach: 'A phone-friendly web app for the South, East and West lot shuttles: live bus positions and arrival predictions, a saved "my commute", directions in Apple or Google Maps, and English, Spanish and Burmese. It installs on a phone as a progressive web app.', hardest: 'The shuttle data comes from an existing third-party tracker, and GitHub Pages cannot run a server. So the app runs on Cloudflare, where a same-origin API fetches the feed and Supabase processes it, so the phone only ever talks to one place.', results: ['Live tracking for 3 employee lots', 'English, Spanish and Burmese', '141 automated tests across 27 test files', '50 commits in its first three weeks'], next: 'Keep refining the details: navigation, route choices, install and share flows, and how clearly the interface communicates its current information.', url: 'https://employeeshuttlelax.com/', linkLabel: 'Open LAXCommute', source: 'https://github.com/normanlinn/LAXCommute', status: 'PERSONAL WEB APP / PROJECT NOTES' },
+  { title: 'Settle', intro: 'A calmer way to plan a move.', problem: 'A move is made up of small responsibilities: utilities, address changes, cleaning, keys, inspection, and records. It is easy for a loose end to get lost.', approach: 'Bring the checklist and timeline into a single planning experience, with due dates and a way to see what is complete. The idea grew out of my own need to organize a move.', next: 'Keep making the next action clearer, especially when checking a task list from a phone.', linkLabel: 'Live link coming soon', status: 'IN DEVELOPMENT / PROJECT NOTES' },
+  { title: 'Burman Tea', intro: 'A storefront experience, with the work behind it considered too.', problem: 'A drink-ordering experience needs to be clear for customers and useful for the people managing the menu and orders.', approach: 'A mobile-first storefront with English and Myanmar typography, drink browsing, an ordering flow, and a protected staff workspace. The interface work includes transitions, accessible controls, and space for the product imagery.', next: 'The project is in development. Store configuration and payment setup are part of preparing the preview for real operation.', url: 'https://burmantea.vercel.app/', linkLabel: 'Visit the project preview', status: 'IN DEVELOPMENT / PROJECT NOTES' },
+  { title: 'Derivatives Field Guide', intro: 'The study guide I wanted before my calculus quiz.', problem: 'Sections 2.8 and 3.1–3.5 of Stewart’s Calculus introduce a lot of derivative rules in a short time. I wanted one place to see why each rule works, and to practise until it stuck.', approach: 'A static Next.js site with a page per section: the idea, a graph you can drag, worked examples, then practice problems with hints and full solutions. Math is rendered with KaTeX at build time, and progress is saved in the browser.', hardest: 'Making the math work on a phone. Wide equations pushed the page sideways, and the graphs had to follow a finger as well as a mouse. I contained the equations, used pointer events with pointer capture so dragging works with touch, and drew each canvas at the screen’s pixel density so it stays sharp.', results: ['77 practice problems with hints and solutions', '8 interactive graphs', 'Rebuilt from a single 1,500-line HTML page into a Next.js site'], next: 'Add the next chapter’s sections as the course moves on.', url: 'https://normanlinn.github.io/calculus-study-site/', linkLabel: 'Open the study site', source: 'https://github.com/normanlinn/calculus-study-site', status: 'STUDY TOOL / PROJECT NOTES' }
 ];
 const dialog = requiredElement<HTMLDialogElement>('#case-dialog');
 function showDialog(title: string, intro: string, sections: readonly DialogSection[]) {
@@ -41,12 +42,25 @@ document.querySelectorAll<HTMLButtonElement>('[data-project]').forEach(button =>
   const p = projects[Number(button.dataset.project)];
   if (!p) return;
   requiredElement<HTMLElement>('#dialog-label').textContent = p.status;
-  showDialog(p.title, p.intro, [['The starting point', p.problem], ['What I built', p.approach], ['The next improvement', p.next]]);
+  const sections: DialogSection[] = [['The starting point', p.problem], ['What I built', p.approach]];
+  if (p.hardest) sections.push(['The hardest part', p.hardest]);
+  sections.push(['The next improvement', p.next]);
+  showDialog(p.title, p.intro, sections);
+  if (p.results) {
+    const heading = document.createElement('h3');
+    heading.textContent = 'By the numbers';
+    const list = document.createElement('ul');
+    list.className = 'dialog-results';
+    p.results.forEach(result => { const item = document.createElement('li'); item.textContent = result; list.append(item); });
+    requiredElement('#dialog-body').append(heading, list);
+  }
   const links = document.createElement('div');
   links.className = 'dialog-links';
-  const live = document.createElement('a');
-  live.href = p.url; live.target = '_blank'; live.rel = 'noopener noreferrer'; live.className = 'pill primary'; live.textContent = p.linkLabel + ' ↗';
-  links.append(live);
+  if (p.url) {
+    const live = document.createElement('a');
+    live.href = p.url; live.target = '_blank'; live.rel = 'noopener noreferrer'; live.className = 'pill primary'; live.textContent = p.linkLabel + ' ↗';
+    links.append(live);
+  }
   if (p.source) {
     const source = document.createElement('a');
     source.href = p.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.className = 'inline-link'; source.textContent = 'Explore the source ↗';
@@ -71,6 +85,7 @@ function selectSkill(button: HTMLButtonElement): void {
   requiredElement('#skill-symbol').textContent = skill.symbol;
   requiredElement('#skill-name').textContent = skill.name;
   requiredElement('#skill-description').textContent = skill.description;
+  requiredElement('#skill-used').textContent = skill.usedIn;
   document.querySelectorAll<HTMLButtonElement>('[data-skill]').forEach(element => {
     const selected = element === button;
     element.classList.toggle('selected', selected);
