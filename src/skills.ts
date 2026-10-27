@@ -5,28 +5,28 @@ export const skills: Skill[] = [
     "name": "HTML",
     "category": "Web",
     "description": "Semantic page structure and accessible content.",
-    "usedIn": "LAXCommute, Derivatives Field Guide and this portfolio"
+    "usedIn": "LAXCommute, Yay Kyaw Nights, Derivatives Field Guide and this portfolio"
   },
   {
     "symbol": "Cs",
     "name": "CSS",
     "category": "Web",
     "description": "Responsive layouts, typography, and visual systems.",
-    "usedIn": "LAXCommute, Derivatives Field Guide and this portfolio"
+    "usedIn": "LAXCommute, Yay Kyaw Nights, Derivatives Field Guide and this portfolio"
   },
   {
     "symbol": "Js",
     "name": "JavaScript",
     "category": "Code",
     "description": "Browser interactions and application logic.",
-    "usedIn": "LAXCommute and this portfolio"
+    "usedIn": "LAXCommute, Yay Kyaw Nights and this portfolio"
   },
   {
     "symbol": "Ts",
     "name": "TypeScript",
     "category": "Code",
     "description": "Typed data, safer DOM access, and strict checking.",
-    "usedIn": "LAXCommute, Derivatives Field Guide and this portfolio"
+    "usedIn": "Yay Kyaw Nights (with Three.js), LAXCommute, Derivatives Field Guide and this portfolio"
   },
   {
     "symbol": "Re",
@@ -75,7 +75,7 @@ export const skills: Skill[] = [
     "name": "Responsive",
     "category": "Web",
     "description": "Interfaces that adapt to different screen sizes.",
-    "usedIn": "LAXCommute (built phone-first), Derivatives Field Guide and this portfolio"
+    "usedIn": "LAXCommute (built phone-first), Yay Kyaw Nights (touch controls on phones), Derivatives Field Guide and this portfolio"
   },
   {
     "symbol": "Op",
