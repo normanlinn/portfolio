@@ -1,3 +1,4 @@
+import { initEditorialMotion } from './editorial-motion';
 import { animate, inView, stagger, scroll, type AnimationPlaybackControlsWithThen, type DOMKeyframesDefinition, type AnimationOptions } from 'framer-motion';
 import { requiredElement } from './dom';
 
@@ -131,3 +132,5 @@ window.addEventListener('portfolio:dialog-open', () => {
   if (!reduced.matches) play(requiredElement<HTMLDialogElement>('dialog'), { opacity: [0,1], y: [18,0], scale:[0.97,1] }, {duration:0.25, ease:[0.22,1,0.36,1]});
 });
 startMotion();
+
+initEditorialMotion();

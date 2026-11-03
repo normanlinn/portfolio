@@ -37,3 +37,12 @@ nav a{transition:background-color .22s,color .22s,box-shadow .22s}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero-bottom>span:first-child::before{animation:none}.project .mock,.project .terminal{transform:none!important}*,*::before,*::after{transition:none!important}}
 
 .heading-word{display:inline-block;transform-origin:left bottom}
+
+/* Masked glyphs and scroll-reading create a distinct editorial motion language. */
+.hero-type-word{display:inline-block;white-space:nowrap}.glyph-mask{display:inline-block;overflow:clip;vertical-align:bottom;padding-bottom:.12em;margin-bottom:-.12em}.hero-glyph{display:inline-block;transform-origin:left bottom}
+.hero h1 em .glyph-mask{padding-right:.09em;margin-right:-.09em}
+main>.section{position:relative;border-top:0}.section-rule{position:absolute;top:0;left:7%;right:7%;height:1px;background:var(--line);transform-origin:left;pointer-events:none}
+.reading-word{transition:none}
+.hero-actions{gap:0}.hero-actions .secondary-action{display:inline-flex;align-items:center;gap:18px;font-size:12px}.hero-actions .secondary-action::before{content:'↗';display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);border-radius:50%;transition:transform .35s,background .35s,color .35s}.hero-actions .secondary-action:hover::before{transform:rotate(45deg);background:var(--text);color:var(--bg)}
+@media(max-width:700px){.section-rule{left:6%;right:6%}}
+@media(prefers-reduced-motion:reduce){.reading-word{opacity:1!important}.hero-glyph{transform:none!important;opacity:1!important}.section-rule{transform:none!important}}
