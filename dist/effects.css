@@ -1,0 +1,39 @@
+/* Native scrollbar geometry with a quiet, theme-aware finish. */
+html{--scroll-thumb:#aaa79e;--scroll-track:#eeece5;scrollbar-gutter:stable}
+html:has(body.dark){--scroll-thumb:#696b75;--scroll-track:#202126}
+*{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) var(--scroll-track)}
+*::-webkit-scrollbar{width:9px;height:9px}
+*::-webkit-scrollbar-track{background:var(--scroll-track);border-radius:20px}
+*::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border:2px solid var(--scroll-track);border-radius:20px}
+*::-webkit-scrollbar-thumb:hover{background:#7b7c82}
+*::-webkit-scrollbar-corner{background:var(--scroll-track)}
+html.lenis,html.lenis body{height:auto}
+html.lenis{scroll-behavior:auto!important}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis [data-lenis-prevent],dialog{overscroll-behavior:contain}
+html.dialog-visible{overflow:hidden}
+/* Motion stays on transform/opacity for responsive input. */
+nav{backdrop-filter:blur(18px);background:color-mix(in srgb,var(--surface) 90%,transparent);transition:box-shadow .35s,background-color .35s}
+nav a{transition:background-color .22s,color .22s,box-shadow .22s}
+.brand .mark{transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.brand:hover .mark{transform:rotate(-18deg)}
+.secondary-action,footer>a:last-child{position:relative;border-bottom-color:transparent}
+.secondary-action::after,footer>a:last-child::after{content:'';position:absolute;left:0;bottom:3px;width:100%;height:1px;background:currentColor;transform:scaleX(.25);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.secondary-action:hover::after,footer>a:last-child:hover::after{transform:scaleX(1)}
+.project .visual{perspective:900px}
+.project .mock,.project .terminal{transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.project:hover .mock{transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)) scale(1.025)}
+.project-meta::after{transition:letter-spacing .3s,padding-left .3s}
+.project:hover .project-meta::after{letter-spacing:.025em;padding-left:6px}
+.skill-element{transition:background-color .25s,color .25s,outline-color .25s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.skill-element:hover{box-shadow:0 10px 24px #00000014}
+.learning-grid article{transition:border-color .3s,box-shadow .3s}
+.learning-grid article:hover{border-color:var(--muted);box-shadow:0 12px 28px #00000009}
+.learning-grid article>span{display:inline-block;transition:letter-spacing .35s}.learning-grid article:hover>span{letter-spacing:.16em}
+.reading-progress{z-index:1000;height:2px;background:var(--text);box-shadow:0 0 10px #8884}
+.hero-bottom>span:first-child::before{content:'↓';display:inline-block;margin-right:10px;animation:scroll-hint 2.2s ease-in-out infinite}
+@keyframes scroll-hint{0%,100%{transform:translateY(-3px);opacity:.5}50%{transform:translateY(3px);opacity:1}}
+@media(hover:none){.project:hover .mock{transform:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.hero-bottom>span:first-child::before{animation:none}.project .mock,.project .terminal{transform:none!important}*,*::before,*::after{transition:none!important}}
+
+.heading-word{display:inline-block;transform-origin:left bottom}
