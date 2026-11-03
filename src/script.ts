@@ -46,10 +46,6 @@ document.querySelectorAll<HTMLButtonElement>('[data-project]').forEach(button =>
   if (project.source) { const source = document.createElement('a'); source.href = project.source; source.target = '_blank'; source.rel = 'noopener noreferrer'; source.textContent = 'View source ↗'; links.append(source); }
   requiredElement('#dialog-body').append(links);
 }));
-requiredElement<HTMLElement>('#contact-button').addEventListener('click', () => {
-  requiredElement<HTMLElement>('#dialog-label').textContent = 'CONTACT';
-  showDialog('Let’s connect.', 'Contact details are coming soon.', [['Make this yours','Add your email address or preferred contact link to enable direct inquiries.']]);
-});
 requiredElement<HTMLButtonElement>('.close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if(event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
 
