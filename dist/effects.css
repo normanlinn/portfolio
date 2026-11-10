@@ -1,3 +1,4 @@
+@font-face{font-family:'Instrument Sans';src:url(assets/instrument-sans.woff2) format('woff2');font-weight:400 700;font-stretch:75% 100%;font-display:swap}@font-face{font-family:'Instrument Serif';src:url(assets/instrument-serif-italic.woff2) format('woff2');font-style:italic;font-weight:400;font-display:swap}@font-face{font-family:'Instrument Serif';src:url(assets/instrument-serif-italic.woff2) format('woff2');font-style:normal;font-weight:400;font-display:swap}
 /* Native scrollbar geometry with a quiet, theme-aware finish. */
 html{--scroll-thumb:#aaa79e;--scroll-track:#eeece5;scrollbar-gutter:stable}
 html:has(body.dark){--scroll-thumb:#696b75;--scroll-track:#202126}
@@ -71,7 +72,7 @@ body.dark{--word-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 .hero-terrain{position:absolute;inset:-6% -4%;z-index:0;pointer-events:none;opacity:var(--terrain-alpha);will-change:translate}
 .hero-terrain::before{content:'';position:absolute;inset:0;background:var(--terrain);-webkit-mask:url(assets/contours.svg) center/cover no-repeat,linear-gradient(180deg,#000 55%,transparent 92%);-webkit-mask-composite:source-in;mask:url(assets/contours.svg) center/cover no-repeat,linear-gradient(180deg,#000 55%,transparent 92%);mask-composite:intersect;animation:terrain-drift 48s ease-in-out infinite alternate}
 @keyframes terrain-drift{from{transform:scale(1.04) translate3d(-1.2%,0,0)}to{transform:scale(1.1) translate3d(1.2%,-1.5%,0)}}
-.hero-word{z-index:0;opacity:1!important;will-change:translate;font-family:'Inter Tight',Inter,Arial,sans-serif;font-weight:800}
+.hero-word{z-index:0;opacity:1!important;will-change:translate;font-family:'Instrument Sans',Arial,sans-serif;font-weight:800}
 .hero-word .name-letter{display:inline-block;color:transparent;-webkit-text-stroke:1px var(--word-edge);background-image:var(--word-noise),linear-gradient(105deg,var(--word-a),var(--word-b) 50%,var(--word-c));background-size:160px 160px,700% 100%;background-position:0 0,calc(var(--i,0) * 16.6%) 0;-webkit-background-clip:text;background-clip:text}
 .hero-word .name-letter:nth-child(2){--i:1}.hero-word .name-letter:nth-child(3){--i:2}.hero-word .name-letter:nth-child(5){--i:3}.hero-word .name-letter:nth-child(6){--i:4}.hero-word .name-letter:nth-child(7){--i:5}
 .hero-stage{position:relative;z-index:1}
@@ -79,3 +80,18 @@ body.dark{--word-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2
 body::after{content:'';position:fixed;inset:0;z-index:999;pointer-events:none;opacity:var(--grain-alpha);mix-blend-mode:var(--grain-blend);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 @media(prefers-reduced-motion:reduce){.hero-terrain::before{animation:none}}
 @media print{body::after,.hero-terrain{display:none}}
+
+/* Calmer interaction: hover changes colour and underline only, nothing lifts, tilts, spins or bounces. */
+.pill:hover,.skill-element:hover,.identity-card:hover,.brand:hover .mark,.project:hover .mock,.real-project:hover .real-shot{transform:none!important}
+.hero-actions .secondary-action:hover::before{transform:none!important}
+.project:hover .project-meta::after{letter-spacing:inherit;padding-left:0}
+.learning-grid article:hover>span{letter-spacing:inherit}
+.skill-element:hover,.learning-grid article:hover{box-shadow:none}
+.hero-bottom>span:first-child::before{animation:none!important;opacity:.8}
+.project-meta .project-result{border-left:0;padding-left:0;color:var(--muted)}
+
+/* Spacing tuned for Instrument Sans and Instrument Serif. */
+.hero-word .name-letter{-webkit-text-stroke:0}
+.hero h1,.contact h2,.section-head h2,.about h2{letter-spacing:-.035em}
+h1 em,h2 em,.hero h1 em,.contact h2 em,.about-large em{letter-spacing:-.005em;word-spacing:.04em}
+@media(max-width:560px){.hero h1{font-size:clamp(32px,9.6vw,40px)}}

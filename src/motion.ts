@@ -82,41 +82,6 @@ function startMotion() {
   cleanups.push(scroll(value => { progress.style.transform = 'scaleX(' + value + ')'; }));
   cleanups.push(() => progress.remove());
 
-  document.querySelectorAll<HTMLElement>('.project .visual, .pill, .theme, .skill-filter, .close').forEach(element => {
-    const isCard = element.classList.contains('visual');
-    let control: AnimationPlaybackControlsWithThen | undefined;
-    const move = (active: boolean, pressed = false) => {
-      control?.stop();
-      control = play(element, { scale: pressed ? 0.975 : active ? (isCard ? 1.012 : 1.04) : 1, y: active && !isCard ? -3 : 0 }, { type: 'spring', stiffness: 340, damping: 26 });
-    };
-    const over = (event: PointerEvent) => { if(event.pointerType !== 'touch') move(true); };
-    const out = () => move(false);
-    const down = () => move(false, true);
-    const up = (event: PointerEvent) => move(event.pointerType !== 'touch');
-    const events: Partial<Record<keyof HTMLElementEventMap, EventListener>> = {pointerenter:over as EventListener,pointerleave:out,pointerdown:down,pointerup:up as EventListener,pointercancel:out};
-    Object.entries(events).forEach(([name, handler]) => element.addEventListener(name, handler));
-    cleanups.push(() => { Object.entries(events).forEach(([name, handler]) => element.removeEventListener(name, handler)); element.style.transform = ''; });
-  });
-  document.querySelectorAll<HTMLElement>('.project .visual').forEach(visual => {
-    let frame = 0;
-    const move = (event: PointerEvent) => {
-      if (event.pointerType !== 'mouse') return;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const bounds = visual.getBoundingClientRect();
-        visual.style.setProperty('--tilt-x', ((0.5 - (event.clientY - bounds.top) / bounds.height) * 7) + 'deg');
-        visual.style.setProperty('--tilt-y', (((event.clientX - bounds.left) / bounds.width - 0.5) * 7) + 'deg');
-      });
-    };
-    const reset = () => {
-      cancelAnimationFrame(frame);
-      visual.style.removeProperty('--tilt-x');
-      visual.style.removeProperty('--tilt-y');
-    };
-    visual.addEventListener('pointermove', move, { passive: true });
-    visual.addEventListener('pointerleave', reset);
-    cleanups.push(() => { reset(); visual.removeEventListener('pointermove', move); visual.removeEventListener('pointerleave', reset); });
-  });
 }
 function stopMotion() {
   cleanups.splice(0).forEach(cleanup => cleanup());
