@@ -1,3 +1,4 @@
+import { initHeroDepth } from './hero-depth';
 import { initEditorialMotion } from './editorial-motion';
 import { animate, inView, stagger, scroll, type AnimationPlaybackControlsWithThen, type DOMKeyframesDefinition, type AnimationOptions } from 'framer-motion';
 import { requiredElement } from './dom';
@@ -134,3 +135,4 @@ window.addEventListener('portfolio:dialog-open', () => {
 startMotion();
 
 initEditorialMotion();
+initHeroDepth();

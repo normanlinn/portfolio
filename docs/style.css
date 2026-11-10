@@ -87,3 +87,48 @@ body.dark .skill-element:hover,body.dark .skill-element.selected{background:var(
 
 .name-letter{display:inline-block;transform-origin:center bottom;will-change:transform}.name-space{display:inline-block;width:.22em}@media(prefers-reduced-motion:reduce){.name-letter{will-change:auto}}
 
+
+/* Project screenshots extend to the card border. */
+.project:has(.real-visual) {
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+.project:has(.real-visual) .project-meta {
+  padding: clamp(16px, 3vw, 32px);
+}
+.project .real-visual {
+  position: relative;
+  padding: 0;
+  border-radius: 0;
+}
+.real-visual .work-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.real-visual .real-shot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.real-visual .work-index {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  left: 12px;
+  padding: 5px 9px;
+  border-radius: 5px;
+  background: #17191de6;
+  color: #fff;
+  font-size: 10px;
+}
+@media (max-width: 600px) {
+  .project .real-visual {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+}
